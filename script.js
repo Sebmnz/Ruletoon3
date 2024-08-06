@@ -10,12 +10,18 @@ function spinWheel() {
     spinButton.disabled = true;
     result.classList.add('hidden');
 
-    // Generar un ángulo aleatorio para la ruleta
-    const totalSections = 4;
-    const sectionAngle = 360 / totalSections;
-    const randomSection = Math.floor(Math.random() * totalSections);
-    const randomAngleOffset = Math.random() * sectionAngle;
-    const angle = (randomSection * sectionAngle) + randomAngleOffset + 720; // Asegurar al menos 2 vueltas completas
+    // Opciones y sus pesos
+    const options = ['BESO', 'CHUPITO', 'TORTAZO', 'JUEGO'];
+    const weights = [0.1, 0.3, 0.4, 0.2]; // Probabilidades personalizadas
+
+    // Seleccionar una opción basada en los pesos
+    const selectedOptionIndex = weightedRandom(options, weights);
+    const selectedOption = options[selectedOptionIndex];
+
+    // Calcular el ángulo para la ruleta basado en la opción seleccionada
+    const anglePerSection = 360 / options.length;
+    const randomAngleOffset = Math.random() * anglePerSection;
+    const angle = (selectedOptionIndex * anglePerSection) + randomAngleOffset + 720; // Asegurar al menos 2 vueltas completas
 
     // Girar la ruleta
     wheel.style.setProperty('--rotate', angle);
@@ -23,32 +29,42 @@ function spinWheel() {
     // Mostrar confeti y resultado después de que termine de girar
     setTimeout(() => {
         createConfetti();
-
-        // Calcular la opción seleccionada basada en el ángulo final
-        const options = ['BESO', 'CHUPITO', 'TORTAZO', 'JUEGO'];
-        let selectedOption = options[randomSection];
-
+        
         // Ajustar el resultado para los casos específicos
+        let displayOption = selectedOption;
         if (selectedOption === 'JUEGO') {
-            selectedOption = 'CHUPITO';
+            displayOption = 'CHUPITO';
         } else if (selectedOption === 'CHUPITO') {
-            selectedOption = 'JUEGO';
+            displayOption = 'JUEGO';
         }
 
-        result.innerText = selectedOption;
+        result.innerText = displayOption;
         result.classList.remove('hidden');
 
-        // Redirigir después de 8.5 segundos
+        // Redirigir después de 7.5 segundos
         setTimeout(() => {
             clearConfetti();
             window.location.href = 'https://instagram.com/sebasm97';
-        }, 8500);
+        }, 75000);
     }, 5000); // La ruleta gira durante 5 segundos
 
     // Rehabilitar el botón después de 15 segundos
     setTimeout(() => {
         spinButton.disabled = false;
     }, 15000);
+}
+
+// Función para seleccionar una opción basada en los pesos
+function weightedRandom(items, weights) {
+    let totalWeight = weights.reduce((acc, weight) => acc + weight, 0);
+    let randomNum = Math.random() * totalWeight;
+    for (let i = 0; i < items.length; i++) {
+        if (randomNum < weights[i]) {
+            return i;
+        }
+        randomNum -= weights[i];
+    }
+    return -1; // Por si algo sale mal
 }
 
 function createConfetti() {
