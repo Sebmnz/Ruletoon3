@@ -43,7 +43,7 @@ function spinWheel() {
         // Redirigir después de 7.5 segundos
         setTimeout(() => {
             clearConfetti();
-            window.location.href = 'https://instagram.com/sebasm97';
+            window.location.href = 'https://instagram.com/franmgd_';
         }, 75000);
     }, 5000); // La ruleta gira durante 5 segundos
 
