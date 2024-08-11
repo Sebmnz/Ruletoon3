@@ -12,7 +12,7 @@ function spinWheel() {
 
     // Opciones y sus pesos
     const options = ['BESO', 'CHUPITO', 'TORTAZO', 'JUEGO'];
-    const weights = [0.2, 0.2, 0.2, 0.4]; // Probabilidades trucazo
+    const weights = [0.5, 0.0, 0.2, 0.3]; // Probabilidades trucazo
     // Seleccionar una opción basada en los pesos
     const selectedOptionIndex = weightedRandom(options, weights);
     const selectedOption = options[selectedOptionIndex];
