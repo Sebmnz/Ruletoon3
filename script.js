@@ -44,7 +44,7 @@ function spinWheel() {
         setTimeout(() => {
             clearConfetti();
             window.location.href = 'https://instagram.com/franmgd_';
-        }, 75000);
+        }, 7000);
     }, 5000); // La ruleta gira durante 5 segundos
 
     // Rehabilitar el botón después de 15 segundos
