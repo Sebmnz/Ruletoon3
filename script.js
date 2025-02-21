@@ -36,7 +36,7 @@ function startSpinning() {
 
             setTimeout(() => {
                 // Simula que la ruleta se va a parar reduciendo la velocidad a casi cero
-                speedFactor = 0.07;
+                speedFactor = 0.03;
                 slowdownActive = true;
 
                 // Mantiene la velocidad reducida por 1.5 segundos
