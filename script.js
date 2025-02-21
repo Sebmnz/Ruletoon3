@@ -2,7 +2,7 @@ document.getElementById('spinButton').addEventListener('click', startSpinning);
 
 let isSpinning = false;
 let currentAngle = 0;
-let baseSpeed = 0.7;         // Velocidad inicial más baja para que las opciones sean visibles
+let baseSpeed = 1;         // Velocidad inicial más baja para que las opciones sean visibles
 let speedFactor = 1;        // Control de velocidad
 let slowdownActive = false; // Bandera para efecto de "parada aparente"
 let spinLoopId;
@@ -36,7 +36,7 @@ function startSpinning() {
 
             setTimeout(() => {
                 // Simula que la ruleta se va a parar reduciendo la velocidad a casi cero
-                speedFactor = 0.2;
+                speedFactor = 0.07;
                 slowdownActive = true;
 
                 // Mantiene la velocidad reducida por 1.5 segundos
