@@ -2,48 +2,54 @@ document.getElementById('spinButton').addEventListener('click', startSpinning);
 
 let isSpinning = false;
 let currentAngle = 0;
-let spinSpeed = 60; // Velocidad inicial rápida
-let speedFactor = 1; // Control de velocidad
-let slowMotionEffect = false; // Controla el efecto de falsa ralentización
+let baseSpeed = 60;         // Velocidad base alta
+let speedFactor = 1;        // Factor de velocidad actual (1 = velocidad completa)
+let slowdownActive = false; // Bandera para saber si se está aplicando el efecto de "parada aparente"
+let spinLoopId;
 
 function startSpinning() {
-    if (isSpinning) return;
-    isSpinning = true;
+  if (isSpinning) return;
+  isSpinning = true;
+  const wheel = document.getElementById('wheel');
+  const spinButton = document.getElementById('spinButton');
+  spinButton.disabled = true;
 
-    const wheel = document.getElementById('wheel');
-    let spinButton = document.getElementById('spinButton');
-    spinButton.disabled = true;
+  // Reiniciamos variables
+  currentAngle = 0;
+  speedFactor = 1;
+  slowdownActive = false;
 
-    // Gira rápido durante los primeros 6 segundos
-    setTimeout(() => {
-        slowMotionEffect = true; // Activa el efecto de falsa ralentización
-        applySlowMotionEffect();
-    }, 6000);
+  // Iniciar el bucle de giro (usando requestAnimationFrame)
+  function spinLoop() {
+    currentAngle += baseSpeed * speedFactor;
+    wheel.style.transform = `rotate(${currentAngle}deg)`;
+    spinLoopId = requestAnimationFrame(spinLoop);
+  }
+  
+  spinLoop();
 
-    function spinLoop() {
-        if (!isSpinning) return;
+  // Durante los primeros 10 segundos, no se hace nada; luego se inician los "efectos de parada aparente"
+  setTimeout(() => {
+    // Función recursiva para aplicar el efecto de desaceleración
+    function applySlowdown() {
+      // Genera un intervalo aleatorio entre 10 y 12 segundos
+      const interval = Math.random() * 2000 + 10000; // en milisegundos
 
-        // Aplica el ángulo con la velocidad ajustada
-        currentAngle += spinSpeed * speedFactor;
-        wheel.style.transform = `rotate(${currentAngle}deg)`;
-
-        // Sigue girando sin parar
-        requestAnimationFrame(spinLoop);
-    }
-
-    spinLoop();
-}
-
-// Función para simular la ralentización cada 6-7 segundos
-function applySlowMotionEffect() {
-    if (!slowMotionEffect) return;
-
-    setInterval(() => {
-        speedFactor = 0.4; // Parece que se desacelera
-
+      setTimeout(() => {
+        // Simula que la ruleta se para: baja el speedFactor a casi cero
+        speedFactor = 0.05; 
+        slowdownActive = true;
+        // Mantiene este estado por 1 segundo (ajustable)
         setTimeout(() => {
-            speedFactor = 1; // Vuelve a girar a la velocidad normal
-        }, 1000); // Falsa ralentización por 1 segundo
-    }, Math.random
-
+          // Vuelve a la velocidad normal
+          speedFactor = 1;
+          slowdownActive = false;
+          // Vuelve a programar el próximo "efecto de parada aparente"
+          applySlowdown();
+        }, 1000);
+      }, interval);
+    }
+    applySlowdown();
+  }, 10000);
+}
 
