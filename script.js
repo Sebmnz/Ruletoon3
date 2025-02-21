@@ -2,7 +2,7 @@ document.getElementById('spinButton').addEventListener('click', startSpinning);
 
 let isSpinning = false;
 let currentAngle = 0;
-let baseSpeed = 2;         // Velocidad inicial más baja para que las opciones sean visibles
+let baseSpeed = 1;         // Velocidad inicial más baja para que las opciones sean visibles
 let speedFactor = 1;        // Control de velocidad
 let slowdownActive = false; // Bandera para efecto de "parada aparente"
 let spinLoopId;
