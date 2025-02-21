@@ -63,7 +63,7 @@ function startSpinning() {
 function showLobilloMessage() {
     const container = document.querySelector('.container');
     const message = document.createElement('div');
-    message.innerText = "pues no gilipollas, nos vamos al lobillo";
+    message.innerText = "Pues no gilipollas,que nos vamos al Lobillo 🐺";
     message.classList.add('lobillo-message');
     container.appendChild(message);
 
