@@ -2,7 +2,7 @@ document.getElementById('spinButton').addEventListener('click', startSpinning);
 
 let isSpinning = false;
 let currentAngle = 0;
-let spinSpeed = 20; // Velocidad inicial
+let spinSpeed = 50; // Aumento de la velocidad inicial
 let speedFactor = 1; // Controla la aceleración/desaceleración
 
 function startSpinning() {
@@ -16,16 +16,18 @@ function startSpinning() {
     function spinLoop() {
         if (!isSpinning) return;
 
+        // Aumenta el ángulo rápidamente al inicio
         currentAngle += spinSpeed * speedFactor;
         wheel.style.transform = `rotate(${currentAngle}deg)`;
 
-        // Alternar aceleración y desaceleración cada 2-3 segundos
+        // Alternar aceleración y desaceleración cada 1.5 - 2.5 segundos
         setTimeout(() => {
-            speedFactor = Math.random() > 0.5 ? 0.5 : 1.5; // Acelera o desacelera aleatoriamente
+            speedFactor = Math.random() > 0.5 ? 0.4 : 2; // Se desacelera o acelera más fuerte
             spinLoop();
-        }, Math.random() * 1000 + 2000); // Cambia cada 2-3 segundos
+        }, Math.random() * 1000 + 1500); // Cambia cada 1.5 - 2.5 segundos
     }
 
     spinLoop();
 }
+
 
