@@ -47,7 +47,7 @@ function startSpinning() {
 
                     // Vuelve a programar el siguiente efecto de falsa desaceleración
                     applySlowdown();
-                }, 3000);
+                }, 5000);
             }, interval);
         }
         applySlowdown();
